@@ -8,6 +8,7 @@ class Student(models.Model):
     telegram_id = models.CharField(max_length=1000)
     alexa_id = models.CharField(max_length=1000)
     moodle_id = models.CharField(max_length=1000)
+    birth_date = models.CharField(max_length=50, default='01/01/1901')
     faculty = models.CharField(default="", max_length=200)
 
     # REQUIRED_FIELDS = ('user', )
