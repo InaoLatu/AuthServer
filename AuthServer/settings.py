@@ -25,12 +25,12 @@ SECRET_KEY = 'cbl9lamz0t#0=*uch7kxx0dsu2pi2v&5czp2)btkvp*(@59!0c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
 INSTALLED_APPS = [
-    'students_manager',
+    'student_manager',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -77,7 +77,8 @@ WSGI_APPLICATION = 'AuthServer.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'auth_server',
+        # 'NAME': 'auth_server',
+        'NAME': 'student_manager'
     }
 }
 
@@ -119,3 +120,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')

@@ -1,45 +1,45 @@
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.urls import reverse_lazy
-from django.views import generic
-from students_manager.forms import StudentCreateForm, UserCreateForm
-from students_manager.models import Student
+from student_manager.forms import StudentCreateForm, UserCreateForm
+from student_manager.models import Student
 
 
-def signup(request):
-    if request.method == 'POST':
-        user_form = UserCreateForm(request.POST)
-        student_form = StudentCreateForm(request.POST)
+# def signup(request):
+#     if request.method == 'POST':
+#         user_form = UserCreateForm(request.POST)
+#         student_form = StudentCreateForm(request.POST)
+#
+#         if user_form.is_valid():
+#             user = user_form.save()
+#             print(request.POST['birth_date'])
+#             student = Student.objects.create(user=user, faculty="teleco", birth_date=request.POST['birth_date'])
+#             student.save()
+#
+#             return render(request, 'students_manager/confirm_registration.html')
+#     else:
+#         user_form = UserCreateForm()
+#         student_form = StudentCreateForm()
+#
+#     return render(request, 'students_manager/signup.html', {'user_form': user_form, 'student_form': student_form})
 
-        if user_form.is_valid():
-            user = user_form.save()
-            print(request.POST['birth_date'])
-            student = Student.objects.create(user=user, faculty="teleco", birth_date=request.POST['birth_date'])
-            student.save()
-
-            return render(request, 'students_manager/confirm_registration.html')
-    else:
-        user_form = UserCreateForm()
-        student_form = StudentCreateForm()
-
-    return render(request, 'students_manager/signup.html', {'user_form': user_form, 'student_form': student_form})
 
 
-# Register the third-platform id of choice. It could be the id from telegram, alexa or moodle
 def identification_telegram(request, **kwargs):
+    # Register the third-platform id of choice. It could be the id from telegram, alexa or moodle
     try:
         user = User.objects.get(username=kwargs['username'])
         student = Student.objects.get(user=user)
+        student.telegram_id = kwargs['id']
 
-        if kwargs['type'] == 'telegram':
-            student.telegram_id = kwargs['id']
-        # elif kwargs['type'] == 'alexa':
-        #     student.alexa_id = kwargs['id']
-        # elif kwargs['type'] == 'moodle':
-        #     student.moodle_id = kwargs['id']
-        else:
-            return HttpResponse("Type not correct. Options available are: 'telegram'", status=400)
+        # if kwargs['type'] == 'telegram':
+        #     student.telegram_id = kwargs['id']
+        # # elif kwargs['type'] == 'alexa':
+        # #     student.alexa_id = kwargs['id']
+        # # elif kwargs['type'] == 'moodle':
+        # #     student.moodle_id = kwargs['id']
+        # else:
+        #     return HttpResponse("Type not correct. Options available are: 'telegram'", status=400)
 
         student.save()
 

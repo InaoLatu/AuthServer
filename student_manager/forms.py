@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 
-from students_manager.models import Student
+from student_manager.models import Student
 
 
 # For the fields of the User Django Model
